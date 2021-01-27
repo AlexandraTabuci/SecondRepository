@@ -1,0 +1,67 @@
+CREATE TABLE Country(
+    id_country  int primary key,
+    name varchar(30) unique not null,
+    code int unique not null
+);
+
+select * from Country;
+
+CREATE TABLE Brand(
+    id_brand int primary key,
+    name varchar(30) unique not null,
+    country_id int references Country(id_country)
+);
+
+CREATE TABLE Car(
+    id_car int primary key,
+    model varchar(30) not null,
+    brand_id int references Brand(id_brand),
+    color varchar(10),
+    manufactory_date date,
+    price int check (price > 0),
+    carcase_type varchar(15)
+);
+
+ALTER TABLE Car
+    add column currency decimal(4, 2) default ('EUR');
+
+INSERT INTO Country
+VALUES (1, 'USA', '3445');
+INSERT INTO Country
+VALUES (2, 'Russia', '7654');
+INSERT INTO Country
+VALUES (3, 'Italy', '9976');
+
+
+INSERT INTO Brand
+VALUES (10, 'Volga', 2);
+INSERT INTO Brand
+VALUES (11, 'Lada', 2);
+INSERT INTO Brand
+VALUES (12, 'Lamborghini', 3);
+INSERT INTO Brand
+VALUES (13, 'Fiat', 3);
+INSERT INTO Brand
+VALUES (14, 'Ferrari', 3);
+INSERT INTO Brand
+VALUES (15, 'Ford', 1);
+INSERT INTO Brand
+VALUES (16, 'Dodge', 1);
+INSERT INTO Brand
+VALUES (17, 'Chevrolet', 1);
+
+
+INSERT INTO Car
+VALUES (1001, 'gaz', 10, 'beige', '1965', '20 000', '23', '1000');
+INSERT INTO Car
+VALUES (1002, '2106', 11, 'green', '1986', '20 000', 'sedan', '1000');
+INSERT INTO Car
+VALUES (1003, 'aventador', 12, 'red', '2012', '4 000 000', 'sport car', '200 000');
+INSERT INTO Car
+VALUES (1004, '500', 13, 'white', '2018', '40 000', 'bobik', '2 000');
+INSERT INTO Car
+VALUES (1005, 'LaFerrari', 14, 'black', '2005', '6 000 000', 'sport coupe', '300 000');
+INSERT INTO Car
+VALUES (1006, 'Focus', 15, 'grey', '2018', '200 000', 'universal', '10 000');
+INSERT INTO Car
+VALUES (1008, 'Camaro', 17, 'yellow', '2003', '1 400 000', 'sport coupe', '70 000');
